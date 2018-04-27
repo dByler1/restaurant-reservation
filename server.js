@@ -3,39 +3,54 @@ var bodyParser = require("body-parser");
 var path = require("path");
 
 var app = express();
-var PORT = 3000;
+var PORT = 3001;
 
-app.use(bodyParser.urlencoded({ extend: true }));
+app.use(bodyParser.urlencoded({
+    extend: true
+}));
 app.use(bodyParser.json());
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.get("/reservation", function(req, res) {
+app.get("/reservation", function (req, res) {
     res.sendFile(path.join(__dirname, "reservation.html"));
 });
 
-app.get("/tables", function(req, res) {
+app.get("/tables", function (req, res) {
     res.sendFile(path.join(__dirname, "tables.html"));
 });
 
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
 });
 
-app.post("/api/tables", function(req, res) {
+app.post("/api/tables", function (req, res) {
     console.log('the post happend');
+
+    var newReservation = {
+        name: req.body.customerName,
+        phoneNum: req.body.phoneNumber,
+        email: req.body.customerEmail,
+        customerID: req.body.customerID
+    };
+    if (dataArray.length < 5){
+    dataArray.push(newReservation);
+    console.log(dataArray);
+    res.json(newReservation);
+
+    } else{
+        waitList.push(newReservation);
+        console.log(waitList);
+        res.end();
+    }
     
-    var newReservation =  {
-    name: req.body.customerName,
-    phoneNum: req.body.phoneNumber,
-    email: req.body.customerEmail,
-    customerID: req.body.customerID
-}
+    
+   
+});
 
-res.json(newReservation);
 
-})
-
+var dataArray = [];
+var waitList = [];
