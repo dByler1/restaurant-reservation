@@ -1,6 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
+var nodemailer = require('node-mailer');
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -44,7 +45,7 @@ app.post("/api/tables", function (req, res) {
         email: req.body.customerEmail,
         customerID: req.body.customerID
     };
-    if (dataArray.length < 2){
+    if (dataArray.length < 5){
       dataArray.push(newReservation);
       console.log(dataArray);
       res.json(newReservation);
